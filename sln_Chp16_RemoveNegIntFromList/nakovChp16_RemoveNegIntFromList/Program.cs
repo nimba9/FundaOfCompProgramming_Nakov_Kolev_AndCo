@@ -10,12 +10,9 @@ class Program
         {
             throw new NullReferenceException("No data found in the list");
         }
-
-
+        
         List<int> result = new List<int>();
-
-
-
+                
         foreach (var item in numList)
         {
             if (item > 0)
@@ -30,11 +27,9 @@ class Program
         {
             Console.WriteLine(item);
         }
-
-
+        
     }
-
-
+    
 
     public static void Main()
     {
