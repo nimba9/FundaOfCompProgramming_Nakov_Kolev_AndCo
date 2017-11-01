@@ -23,7 +23,7 @@ class Program
 
         numList = result;
 
-        foreach (var item in result)
+        foreach (var item in numList)
         {
             Console.WriteLine(item);
         }
