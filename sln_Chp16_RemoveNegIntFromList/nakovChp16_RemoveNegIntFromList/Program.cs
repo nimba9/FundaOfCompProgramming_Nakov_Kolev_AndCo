@@ -21,9 +21,9 @@ class Program
             }
         }
 
-        numList = result;
+        
 
-        foreach (var item in numList)
+        foreach (var item in result)
         {
             Console.WriteLine(item);
         }
