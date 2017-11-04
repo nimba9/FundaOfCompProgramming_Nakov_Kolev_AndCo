@@ -18,7 +18,7 @@ namespace nakovChp16_SequeSumAndAVG
             {
                 bool check = int.TryParse(str, out valid);
 
-                if (check == true)
+                if (check == true && valid > 0)
                 {
                     seque.Add(valid);
                 }
