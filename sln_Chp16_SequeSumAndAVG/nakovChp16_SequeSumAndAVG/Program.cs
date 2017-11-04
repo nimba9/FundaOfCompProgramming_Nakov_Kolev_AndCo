@@ -7,46 +7,43 @@ namespace nakovChp16_SequeSumAndAVG
     class Program
     {
 
-        public static void Main()
+        static List<int> CheckUserInput()
         {
             List<int> seque = new List<int>();
-            bool inputEnd = false;
 
-            while(!inputEnd)
+            string str;
+            int valid = 0;
+            
+            while ((str = Console.ReadLine()) != "")
             {
-                Console.Write("Enter number: ");
-                string userInp = Console.ReadLine();
+                bool check = int.TryParse(str, out valid);
 
-                if(String.IsNullOrWhiteSpace(userInp))
+                if (check == true)
                 {
-                    inputEnd = true;
+                    seque.Add(valid);
                 }
 
                 else
-                {
-                    int valid;
-                    bool result = int.TryParse(userInp, out valid);
+                { Console.WriteLine("Please input a positive integer"); }
+
                 
-                    if (valid > 0)
-                    {
-                        seque.Add(valid);
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("Invalid value: Please try again");
-                    }
-                }
-
-                int sum = seque.Sum();
-                int average = seque.Count;
-
-                Console.WriteLine("sum is: {0}", sum);
-                Console.WriteLine("average is: {0}", average);
             }
-            
+                return seque;
         }
 
+        public static void PrintList_SumAndAvg(List<int> intList)
+        {
+
+            Console.WriteLine("The sum of your sequence is: {0}", intList.Sum());
+            Console.WriteLine("The average of your sequence is: {0}", intList.Average());
+
+        }
+
+        public static void Main()
+        {
+            Console.WriteLine("Please enter non negative integers, use void input for ending your sequence");
+            PrintList_SumAndAvg(CheckUserInput());
+        }
     }
 
 }
