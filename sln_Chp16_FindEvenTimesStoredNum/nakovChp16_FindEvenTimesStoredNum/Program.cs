@@ -1,53 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace nakovChp16_FindEvenTimesStoredNum
+
+class RemoveEvenTimesOccuringNumbers
 {
-    class Program
+    public static void RemoveEvenTimesOccuringNum(int [] arr)
     {
-        private static void SortEvenOccurence(List<int> seque)
+        Dictionary<int, int> countNum = new Dictionary<int, int>();
+
+        foreach (var item in arr)
         {
-            List<int> evenList = new List<int>();
-
-            int[] arr = seque.ToArray();
-            Array.Sort(arr);
-
-            
-
-            int timesOccured = 1;
-
-            for (int i = 0; i < arr.Length -1; i++)
+            if (countNum.ContainsKey(item))
             {
-                if (arr[i] == arr[i + 1])
-                {
-                    timesOccured++;
-                    //evenList.Add(arr[i]);
-                 
-                }
-
-
-                else if ((timesOccured % 2) == 0)
-                {
-                    evenList.Add(arr[i]);
-                    timesOccured = 1;
-                }
-
+                countNum[item]++;
             }
 
-            foreach (var item in evenList)
+            else
             {
-                Console.WriteLine(item);
+                countNum.Add(item, 1);
+            }
+
+        }
+
+        List<int> removedNum = new List<int>();
+        foreach (var item in arr)
+        {
+            if (countNum[item] % 2 == 0)
+            {
+                removedNum.Add(item);
+
             }
         }
 
-        static void Main(string[] args)
+        removedNum.Sort();
+       
+        foreach (var item in removedNum)
         {
-            List<int> check = new List<int>() { 77, 5, 12, 14, 26, 32, 26, 5, 77 };
-
-            SortEvenOccurence(check);
+            Console.Write(" " + item);
         }
+
+
+    }
+
+
+    public static void Main()
+    {
+        int[] testArr = { 21, 3, 6, 77, 21, 35, 35, 43, 77, 25, 77, 36, 77 };
+
+        RemoveEvenTimesOccuringNum(testArr);
+
+        
+
+
+
+
+
     }
 }
