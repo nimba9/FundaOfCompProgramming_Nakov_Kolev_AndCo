@@ -15,9 +15,7 @@ class Program
         int currSeq = 0;
         int longestSeqNum = 0;
         int longestSeq = 0;
-
-
-
+                
         foreach (var number in numList)
         {
             if (number == currNum)
@@ -38,21 +36,16 @@ class Program
             }
 
         }
-
-
-
+        
         List<int> storeSeq = new List<int>();
-
-
+        
         Console.WriteLine("The longestSubsequence of equal number is: ");
         for (int i = 0; i < longestSeq; i++)
         {
             storeSeq.Add(longestSeqNum);
             Console.Write(" " + longestSeqNum);
-
-        }
-
-
+         }
+        
     }
 
     public static void Main()
