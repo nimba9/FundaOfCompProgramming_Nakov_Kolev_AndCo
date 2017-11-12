@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nakovChp16_FindOddTimesStoredNum
+namespace nakovChp16_EvenTimeStoredNum_LoopVersion
 {
     class Program
     {
