@@ -6,11 +6,10 @@ using System.Text;
 namespace ShortestSequence
 {
     
-
     public class ShortestSequence
     {
-        static int N = 5;
-        static int M = 16;
+        static int N = 6;
+        static int M = 20;
 
         class Node<T>
         {
@@ -29,7 +28,7 @@ namespace ShortestSequence
 
         private static void CreateNewNode(Node<int> currentNode, int newValue, Queue<Node<int>> queue)
         {
-            var nodeOne = new Node<int>();
+            Node<int> nodeOne = new Node<int>();
             nodeOne.Value = newValue;
             nodeOne.Previous = currentNode;
             if (nodeOne.Value == M)
