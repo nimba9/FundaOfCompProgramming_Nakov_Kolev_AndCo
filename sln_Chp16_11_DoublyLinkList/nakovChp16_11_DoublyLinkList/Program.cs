@@ -159,6 +159,8 @@ public class TestProgram
         {
             list.AddLast(i);
         }
+
+        PrintList(list);
     }
 
     private static void PrintList(LinkedListCustom<int> list)
@@ -168,7 +170,7 @@ public class TestProgram
             Console.WriteLine(node + " ");
         }
 
-        //Console.WriteLine();
+        Console.WriteLine();
     }
 }
 
