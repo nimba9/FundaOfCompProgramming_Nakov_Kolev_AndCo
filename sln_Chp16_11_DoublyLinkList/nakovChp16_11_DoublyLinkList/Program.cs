@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
 //nakov& Co C# book/Chp16 ex11: 
 //Implement the data structure dynamic doubly linked list
@@ -43,11 +41,8 @@ class DoubLinkList<T> where T : IComparable
         Head = null;
         Tail = null;
         Count = 0;
-
     }
-
-
-
+        
     public void AddFirst(T value)
     {
         if (Head == null)
@@ -62,11 +57,9 @@ class DoubLinkList<T> where T : IComparable
             Head.PrvElm.NxtElm = Head;
             Head = Head.PrvElm;
         }
-
-
-        Count++;
         
-    }
+        Count++;
+     }
 
     public void  AddLast(T value)
     {
@@ -286,7 +279,6 @@ class TestProgram
 
         Console.WriteLine();
     }
-
 
 }
 
