@@ -95,13 +95,22 @@ class DoubLinkList<T> where T : IComparable
             if (currElm.Value.CompareTo(value) == 0)
             {
                 if (currElm.PrvElm != null)
-                { currElm.PrvElm.NxtElm = currElm.NxtElm; }
+                {
+                    Console.WriteLine("set a new neibourgh(next element of the current) for the previous element"
+                        + " of the current element");
+                    currElm.PrvElm.NxtElm = currElm.NxtElm;
+                }
 
                 else
                 { Head = currElm.NxtElm; }
 
                 if (currElm.NxtElm != null)
-                { currElm.NxtElm.PrvElm = currElm.PrvElm; }
+                {
+                    
+                    currElm.NxtElm.PrvElm = currElm.PrvElm;
+                    Console.WriteLine("set a new neibourgh(previous element of the current) for the next element"
+                        + " of the current element");
+                }
 
                 currElm = null;
                 Count--;
@@ -111,6 +120,91 @@ class DoubLinkList<T> where T : IComparable
             currElm = currElm.NxtElm;
         }
         
+    }
+
+    public ListElm<T> Find(T value)
+    {
+        ListElm<T> current = Head;
+        while (current != null)
+        {
+            if (current.Value.CompareTo(value) == 0)
+            { return current; }
+
+            current = current.NxtElm;
+        }
+
+        return null;
+    }
+
+    public void InsertAt(T insertValue, int index)
+    {
+        if (index > Count || index < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        else if (index == Count)
+        {
+            this.AddLast(insertValue);
+        }
+
+        else
+        {
+            int position = 0;
+            ListElm<T> injectElm = new ListElm<T>(insertValue);
+            ListElm<T> currElm = Head;
+
+            while (currElm != null)
+            {
+                if (position == index)
+                {
+                    injectElm.PrvElm = currElm.PrvElm;
+                    injectElm.NxtElm = currElm;
+
+                    if (currElm.PrvElm != null)
+                    {
+                        currElm.PrvElm.NxtElm = injectElm;
+                    }
+
+                    else
+                    { Head = injectElm; }
+
+                    currElm.PrvElm = injectElm;
+                    Count++;
+                    break;
+                }
+
+                else
+                {
+                    currElm = currElm.NxtElm;
+                    position++;
+                }
+            }
+        }
+    }
+
+    public ListElm<T> ElementAt(int index)
+    {
+        ListElm<T> currElm = Head;
+        int position = 0;
+
+        if (index < 0 || index >= Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        else
+        {
+            while (currElm != null)
+            {
+                if (position == index)
+                { return currElm; }
+
+                currElm = currElm.NxtElm;
+                position++;
+            }
+        }
+        return null; 
     }
 
     public void Clear()
@@ -145,15 +239,15 @@ class TestProgram
 
         Console.WriteLine("Count:" + dLinkList.Count);
 
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    dLinkList.AddFirst(i);
-        //}
+        for (int i = 0; i < 5; i++)
+        {
+            dLinkList.AddFirst(i);
+        }
 
-        //Console.WriteLine("Adding first");
-        //Print(dLinkList);
+        Console.WriteLine("Adding first");
+        Print(dLinkList);
 
-        //dLinkList.Clear();
+        dLinkList.Clear();
 
         for (int i = 0; i < 5; i++)
         {
@@ -162,16 +256,23 @@ class TestProgram
 
         Console.WriteLine("Adding last");
         Print(dLinkList);
-
-        //dLinkList.Clear();
-
+        
         Console.WriteLine("Existing element will be removed:number 1");
         dLinkList.Remove(1);
         Print(dLinkList);
 
+        ListElm<int> foundElm;
+        foundElm = dLinkList.Find(3);
 
+        if (foundElm != null)
+        { Console.WriteLine("The element {0} has been found", foundElm.Value); }
 
+        dLinkList.InsertAt(10, 0);
+        Print(dLinkList);
 
+        
+        foundElm = dLinkList.ElementAt(2);
+        Console.WriteLine("element 2 is at index: {0}", foundElm.Value);
     }
 
     static void Print(DoubLinkList<int> list)
