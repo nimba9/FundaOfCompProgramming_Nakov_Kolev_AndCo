@@ -10,75 +10,183 @@ using System.Collections.Generic;
 //element at a given index, retrieving an element by a given index and a
 //method, which returns an array with the elements of the list.
 
-class MyLinkedListNode<T>
+class ListElm<T>
 {
     public T Value
-    {
-        get;
-        private set;
-    }
+    { get; private set; }
 
-    public MyLinkedListNode<T> Next
-    {
-        get;
-        private set;
-    }
+    public ListElm<T> NxtElm
+    { get; internal set; }
 
-    public MyLinkedListNode<T> Previous
-    {
-        get;
-        private set;
-    }
+    public ListElm<T> PrvElm
+    { get; internal set; }
 
-    public MyLinkedListNode(T value)
-    {
-        this.Value = value;
-    }
-
+    public ListElm(T value)
+    { this.Value = value; }
 
 }
 
 
-
-class MyLinkedList<T> where T: IComparable
+class DoubLinkList<T> where T : IComparable
 {
-    public static MyLinkedListNode<T> First
-    {
-        get;
-        private set;
-    }
+    public static ListElm<T> Head
+    { get; private set; }
 
-    public static MyLinkedListNode<T> Last
-    {
-        get;
-        private set;
-    }
+    public static ListElm<T> Tail
+    { get; private set; }
 
     public int Count
+    { get; private set; }
+
+    public DoubLinkList()
     {
-        get;
-        private set;
+        Head = null;
+        Tail = null;
+        Count = 0;
+
     }
 
-    public MyLinkedList()
-    {
-        First = null;
-        Last = null;
-        Count = 0; 
-    }
 
-    public void AddLast(T value)
+
+    public void AddFirst(T value)
     {
-        if (Last == null)
+        if (Head == null)
         {
-            First = Last = new MyLinkedListNode<T>(value);
+            Tail = new ListElm<T>(value);
+            Head = Tail;
         }
+
+        else
+        {
+            Head.PrvElm = new ListElm<T>(value);
+            Head.PrvElm.NxtElm = Head;
+            Head = Head.PrvElm;
+        }
+
+
+        Count++;
+        
     }
 
+    public void  AddLast(T value)
+    {
+        if (Tail == null)
+        {
+            Head = new ListElm<T>(value);
+            Tail = Head;
+        }
+
+        else
+        {
+            Tail.NxtElm = new ListElm<T>(value);
+            Tail.NxtElm.PrvElm = Tail;
+            Tail = Tail.NxtElm;
+        }
+
+        Count++;
+    }
+
+    public void Remove(T value)
+    {
+        ListElm<T> currElm = Head;
+
+        while (currElm != null)
+        {
+            if (currElm.Value.CompareTo(value) == 0)
+            {
+                if (currElm.PrvElm != null)
+                { currElm.PrvElm.NxtElm = currElm.NxtElm; }
+
+                else
+                { Head = currElm.NxtElm; }
+
+                if (currElm.NxtElm != null)
+                { currElm.NxtElm.PrvElm = currElm.PrvElm; }
+
+                currElm = null;
+                Count--;
+                break;
+            }
+
+            currElm = currElm.NxtElm;
+        }
+        
+    }
+
+    public void Clear()
+    {
+        Head = null;
+        Tail = null;
+        Count = 0;
+        Console.WriteLine("The list content has been cleared");
+    }
+
+    public T[] ToArray()
+    {
+        T[] arr = new T[Count];
+        ListElm<T> current = Head;
+
+        for (int i = 0; i < Count; i++)
+        {
+            arr[i] = current.Value;
+            current = current.NxtElm;
+        }
+
+        return arr;
+    }
 }
 
+class TestProgram
+{
+
+    public static void Main(string[] args)
+    {
+        DoubLinkList<int> dLinkList = new DoubLinkList<int>();
+
+        Console.WriteLine("Count:" + dLinkList.Count);
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    dLinkList.AddFirst(i);
+        //}
+
+        //Console.WriteLine("Adding first");
+        //Print(dLinkList);
+
+        //dLinkList.Clear();
+
+        for (int i = 0; i < 5; i++)
+        {
+            dLinkList.AddLast(i);
+        }
+
+        Console.WriteLine("Adding last");
+        Print(dLinkList);
+
+        //dLinkList.Clear();
+
+        Console.WriteLine("Existing element will be removed:number 1");
+        dLinkList.Remove(1);
+        Print(dLinkList);
 
 
 
+
+    }
+
+    static void Print(DoubLinkList<int> list)
+    {
+        int[] storedList = list.ToArray();
+
+        foreach (var item in storedList)
+        {
+            Console.Write(item + " ");
+        }
+
+        Console.WriteLine();
+    }
+
+
+}
 
 
